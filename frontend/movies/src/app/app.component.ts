@@ -26,8 +26,7 @@ export class AppComponent implements DoCheck {
       this.loggedButtons=false
     }else{
       this.loggedButtons=true
-      identity=JSON.parse(identity)
-      console.log(identity)      
+      identity=JSON.parse(identity)      
       if(identity.isStaff){
         console.log("es admin el perro")
         this.isAdmin=true
