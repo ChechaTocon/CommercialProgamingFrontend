@@ -6,13 +6,13 @@ body {
   display: grid;
   align-items: center;
   justify-items: center;
-  background-image: linear-gradient(to top, #96fbc4 0%, #f9f586 100%);
+  background-image: linear-gradient(to top, #96fbc4 0%, #f9f586 100%);  
 }
 .card {
   background: #fff;
   border-radius: 4px;
   box-shadow: 0px 14px 80px rgba(34, 35, 58, 0.5);
-  max-width: 400px;
+  max-width: 600px;
   display: flex;
   flex-direction: row;
   border-radius: 25px;
@@ -27,11 +27,21 @@ body {
   text-align: right;
   color: green;
   font-weight: bold;
-  font-size: 12px;
+  font-size: 15px;
 }
+
+.card .rating {
+  padding: 1rem;
+  text-align: left;
+  color: yellow;  
+  font-weight: bold;
+  font-size: 12px;
+  margin-top: 10px;
+}
+
 .card .desc {
   padding: 0.5rem 1rem;
-  font-size: 12px;
+  font-size: 14px;
 }
 .card .actions {
   display: grid;
@@ -51,9 +61,9 @@ body {
   position: absolute;
   border-radius: 50%;
   border: 6px solid white;
-  background-image: linear-gradient(-60deg, #2b2e4a 0%, #e84545 100%);
-  top: 15px;
-  left: 85px;
+  background-image: linear-gradient(-60deg, #2b2e4a 0%, #e84545 100%);  
+  left: 100px;
+  top: -15px;
 }
 
 .card-text {
