@@ -42,7 +42,7 @@ import { MAT_COLOR_FORMATS, NgxMatColorPickerModule, NGX_MAT_COLOR_FORMATS } fro
     RegisterComponent,
     CategoriaComponent,
     MovieComponent,
-    CreatedMovieComponent
+    CreatedMovieComponent,
     ListReviewComponent,
     AddReviewComponent,
     CreateCategoryComponent
