@@ -13,18 +13,22 @@
       <div class="portada">
       
       </div>
-      <div class="title-total">   
-        <div class="title">Ant Collector</div>
-        <h2>Morgan Sweeney</h2>
+      <div class="title-total">
+          <div class="rating">              
+            <i *ngFor="let x of myRating(dataFromParent.ranking)" class="small material-icons">star</i>             
+            <i *ngFor="let x of myNoneRating(dataFromParent.ranking)" style="color: black;" class="small material-icons">star_border</i>
+          </div>
+        <div class="title">@GeckoDevelopers</div>
+        <h2>{{ (dataFromParent.user != undefined) ? '@'+dataFromParent.user?.username : '' }}</h2>
     
     <div class="desc">
-        Morgan has collected ants since they were six years old and now has many dozen ants but none in their pants.                
+        {{ dataFromParent.comment }}               
     </div>
-    <div class="actions">
-      <button><i class="far fa-heart"></i></button>
-      <button><i class="far fa-envelope"></i></button>
-      <button><i class="fas fa-user-friends"></i></button>
-    </div></div>
+    <div class="actions">      
+      <button ><i style="color: red;" class="small material-icons">delete_outline</i></button>
+      <button style="margin-left: 10px;" ><i style="color: blue;" class="small material-icons">edit</i></button>
+    </div>
+    </div>
    
     </div>
            
