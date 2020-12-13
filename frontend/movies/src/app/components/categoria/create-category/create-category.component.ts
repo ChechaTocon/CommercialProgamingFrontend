@@ -11,24 +11,33 @@ import { Category } from '../../../models/category.model'
 export class CreateCategoryComponent implements OnInit {
   name: string = ''
   color: any
+  fontColor: any = 'white'
   idCategory: any
-  category: Category | undefined
+  category: Category = { id: 0, name: '', color: '' }
   title: string = ''
 
   //ColorPicker 
   disabled: boolean = false
   touchUi: boolean = false
-
   constructor(
     private _route: ActivatedRoute,
     private _router: Router,
     private apollo: Apollo,
   ) { }
 
+
+  onChangeColor() {
+    if (Number(this.color.hex[0]) <= 7)
+      this.fontColor = 'white'
+    else
+      this.fontColor = 'black'
+  }
+
+
+
   ngOnInit(): void {
     this._route.paramMap.subscribe(params => {
       this.idCategory = Number(params.get('id'))
-      console.log(this.idCategory)
     });
     if (this.idCategory == 0) {
       this.title = "Crear categoría"
