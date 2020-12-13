@@ -1,0 +1,91 @@
+body {
+    margin: 0 auto;
+    padding: 0;
+    background: #222;
+  }
+  
+  .left {
+    left: 25px;
+  }
+  
+  .right {
+    right: 25px;
+  }
+  
+  .center {
+    text-align: center;
+  }
+  
+  .bottom {
+    position: absolute;
+    bottom: 25px;
+  }
+  
+  #gradient {
+    background: #999955;
+    background-image: linear-gradient(#fcdab7 20%, #fcdab7 20%, #4e89ae 40%, #4e89ae 60%, #1e5f74 60%, #1e5f74 60%, #1d2d50 80%, #1d2d50 80%);
+    margin: 0 auto;
+    margin-top: 100px;
+    width: 100%;
+    height: 150px;
+  }
+  
+  #gradient:after {
+    content: "";
+    position: absolute;
+    background: #E9E2D0;
+    left: 50%;
+    margin-top: -67.5px;
+    margin-left: -270px;
+    padding-left: 20px;
+    border-radius: 5px;
+    width: 520px;
+    height: 275px;
+    z-index: -1;
+  }
+  
+  #card {
+    position: absolute;
+    margin-top: 100px !important;
+    border-radius: 10px;
+    width: 600px;
+    height: 300px;
+    padding: 25px;
+    padding-top: 40px;
+    padding-bottom: 0;
+    left: 50%;
+    top: 67.5px;
+    margin-left: -280px;
+    background: #E9E2D0;
+    box-shadow: -20px 0 35px -25px black, 20px 0 35px -25px black;
+    z-index: 5;
+  }
+  
+  #card img {
+    width: 150px;
+    float: left;
+    border-radius: 5px;
+    margin-right: 20px;
+    -webkit-filter: sepia(1);
+    -moz-filter: sepia(1);
+    filter: sepia(1);
+  }
+  
+  #card h2 {
+    font-family: courier;
+    color: #333;
+    margin: 0 auto;
+    padding: 0;
+    font-size: 15pt;
+  }
+  
+  #card p {
+    font-family: courier;
+    color: #555;
+    font-size: 26px;
+  }
+  
+
+  /*card muni*/
+
+  

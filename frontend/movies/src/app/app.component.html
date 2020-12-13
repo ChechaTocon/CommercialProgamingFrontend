@@ -1,0 +1,21 @@
+<nav style="position: fixed; z-index: 99; height: 100px;" >
+  
+  <div class="nav-wrapper" style="background:#903749; ">
+    <img class="brand-logo right"  src="../assets/hiclipart.com.png" alt="" style="height: 100%; width: 5%;">                                          
+    <div class="brand-logo center">
+      <a [routerLink]="['/']">
+      <span style="margin-right: 10px !important;"  >Gecko </span>
+      <img class="brand-logo center"  src="https://images-ext-2.discordapp.net/external/T0kq3ZaGUVOhp8ifQK2E1Tt0aevIasLV8RgshxREP2g/https/image.flaticon.com/icons/png/512/616/616488.png" alt="" style="height: 150%; width: 35%;">                                          
+      <span style="margin-left: 95px;">Reviews</span>
+    </a>
+    </div>
+    
+    <ul class="left hide-on-med-and-down" >      
+      <li><a  style="height: 100px; padding: 15px; font-size: large;" [routerLink]="['/login']" routerLinkActive="router-link-active" >Iniciar Sesión <mat-icon>login</mat-icon></a> </li>      
+    </ul>
+  </div>
+</nav>
+      
+
+
+<router-outlet></router-outlet>

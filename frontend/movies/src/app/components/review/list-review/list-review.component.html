@@ -1,0 +1,18 @@
+
+<br><br><br><br><br><br>
+<div class="row" *ngIf="!cargando" style="margin-left: 5%; margin-right: 5%;;">
+    <div class="row">
+        <div id="gradient"></div>
+        <div id="card" >
+            <img src="https://picsum.photos/seed/picsum/200/300"/>
+            <h2><b>Departamento: </b>depa</h2>      
+            <a class="btn-floating halfway-fab waves-effect waves-light lightblue" [routerLink]="['/']" style="margin-right: 60px;">
+                <i class="material-icons">keyboard_backspace</i>
+            </a>     
+            <a class="btn-floating halfway-fab waves-effect waves-light lightblue" (click)="openDialog(0)">
+                <i class="material-icons">add</i>
+            </a>     
+        </div>
+    </div>
+
+</div>

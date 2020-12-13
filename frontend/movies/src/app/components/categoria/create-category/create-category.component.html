@@ -1,0 +1,32 @@
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<div class="container">
+    <mat-card style="background-color: {{color}};">
+        <mat-card-title>{{title}}</mat-card-title>
+        <mat-card-content>
+            <div>
+                <form class="col s12">
+                    <div class="row">
+                        <div class="input-field col s6">
+                            <input placeholder="Nombre de la categoría" id="first_name" type="text" class="validate"
+                                style="color: white;">
+                            <label for="first_name">{{color}}</label>
+                        </div>
+
+                    </div>
+                </form>
+                <mat-form-field>
+                    <input matInput [ngxMatColorPicker]="picker" [disabled]="disabled" [(ngModel)]="color">
+                    <ngx-mat-color-toggle matSuffix [for]="picker"></ngx-mat-color-toggle>
+                    <ngx-mat-color-picker #picker [touchUi]="touchUi" [color]="color"></ngx-mat-color-picker>
+                </mat-form-field>
+
+            </div>
+        </mat-card-content>
+    </mat-card>
+</div>
