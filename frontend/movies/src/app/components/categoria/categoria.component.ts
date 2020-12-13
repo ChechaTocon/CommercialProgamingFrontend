@@ -6,14 +6,14 @@ import gql from 'graphql-tag';
 import { Category } from '../../models/category.model'
 
 const categoryQuery = gql`
-  query {
-    category {
-      id
-      name
-      color
-      createdAt
-    }
+ query {
+  categories {
+    id
+    name
+    color
+    createdAt
   }
+}
 `;
 
 @Component({
@@ -22,9 +22,10 @@ const categoryQuery = gql`
   styleUrls: ['./categoria.component.css']
 })
 export class CategoriaComponent implements OnInit {
+  loading: boolean = true
   dataSource: Category[] = []
   private querySubscription: Subscription | undefined;
-  displayedColumns: string[] = ['name', 'options'];
+  displayedColumns: string[] = ['name', 'color', 'options'];
 
   constructor(private apollo: Apollo) { }
 
@@ -34,7 +35,8 @@ export class CategoriaComponent implements OnInit {
     })
       .valueChanges
       .subscribe(({ data }) => {
-        this.dataSource = data.category;
+        this.dataSource = data.categories;
+        this.loading = false
       });
   }
 

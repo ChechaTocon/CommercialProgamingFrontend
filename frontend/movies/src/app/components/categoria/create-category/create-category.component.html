@@ -4,8 +4,12 @@
 <br>
 <br>
 <br>
-
-<div class="container">
+<div class="row" *ngIf="loading">
+    <div class="col s12 center">
+        <mat-spinner style="margin-left: 47%;"></mat-spinner>
+    </div>
+</div>
+<div class="container" *ngIf="!loading">
     <div class="row center">
         <div class="col s12 m8 offset-m2">
             <mat-card>
@@ -13,18 +17,17 @@
                 <br>
                 <mat-card-content>
                     <div class="row">
-                        <form class="col s6">
+                        <div class="col s6">
                             <div class="row">
                                 <div class="input-field col s12">
-                                    <input [(ngModel)]="category.name" style="color: white;"
-                                        placeholder="Nombre de la categoría" id="name" type="text" class="validate"
-                                        required="" aria-required="true">
-                                    <label for="name">Nombre</label>
+                                    <input [(ngModel)]="name" style="color: white;" placeholder="Nombre de la categoría"
+                                        type="text" class="validate" required="" aria-required="true">
+                                    <label class="active">Nombre</label>
                                     <span class="helper-text" data-error="Este campo es obligario"
                                         data-success=""></span>
                                 </div>
                             </div>
-                        </form>
+                        </div>
                         <div class="col s6">
                             <mat-form-field>
                                 <input matInput [ngxMatColorPicker]="picker" [disabled]="disabled" [(ngModel)]="color"
@@ -41,7 +44,7 @@
 
                         <div class="col s12">
                             <br><br>
-                            <button mat-raised-button color="accent">Agregar</button>
+                            <button mat-raised-button color="accent" (click)="clickButton()">{{buttonName}}</button>
                         </div>
 
                     </div>
