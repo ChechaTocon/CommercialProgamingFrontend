@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs'
-import { Apollo } from 'apollo-angular';
+import { Apollo, QueryRef } from 'apollo-angular';
 import gql from 'graphql-tag';
 import { Router, ActivatedRoute, Params } from "@angular/router";
 import { AddReviewComponent } from '../add-review/add-review.component'
 import { MatDialog } from "@angular/material/dialog";
-import { Review, User, Movie, CreateReview, Dialog } from '../../../models/review.model'
+import { Review, User, CreateReview, Dialog } from '../../../models/review.model'
+import { Movie } from '../../../models/movie.model'
 
 const getReview = gql`
   query {
@@ -17,7 +18,10 @@ const getReview = gql`
       updatedAt
       movie{
         id
+        pk       
         movieName
+        description
+        poster
       }
       user{
         id
@@ -32,7 +36,7 @@ const createReview = gql`
 mutation createReview(
   $comment: String,
   $ranking: Int,
-  $movie: String,
+  $movie: Int,
   $user: Int,
 ) {
 
@@ -59,6 +63,7 @@ mutation createReview(
       }
     }
   }
+  
 
 }
 `;
@@ -98,6 +103,23 @@ mutation updateReview(
 
 }
 `;
+
+const categoryQuery = gql`
+query {
+  allMovies {
+  edges{
+    node{
+      id,
+      pk,
+      poster,
+      movieName,
+      description,     
+    }
+    }
+  }
+  }
+`;
+
 @Component({
   selector: 'app-list-review',
   templateUrl: './list-review.component.html',
@@ -105,8 +127,9 @@ mutation updateReview(
 })
 export class ListReviewComponent implements OnInit {
   public cargando:boolean = false
-  dataSource: Review[] = [new Review()]  
-  private querySubscription: Subscription | undefined;
+  dataSource: Review[] = [new Review()]
+  dataSourceActual: Review[] = []
+  public querySubscription: Subscription | undefined;
 
   public baseDialog:Dialog | undefined
 
@@ -116,8 +139,14 @@ export class ListReviewComponent implements OnInit {
 
   public editing:number = 0
   public loading:boolean = true
-  public currentMovie:string = 'TW92aWVOb2RlOjE='
+  public currentMovie:number = 0
   public userId:number | undefined
+
+  public descriptionMovie:string = ''
+  public posterMovie:string = ''
+  public movieNameMovie:string = ''
+
+  //public querySubscription: QueryRef<any> | undefined;
 
   constructor(
     private apollo: Apollo,
@@ -127,17 +156,69 @@ export class ListReviewComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this._route.paramMap.subscribe(params => {
+      let theid:any
+      theid = params.get('id')?.toString();
+      this.currentMovie = parseInt(theid)
+
+      let datuser:any
+      datuser = localStorage.getItem("userLogged");
+      datuser = JSON.parse(datuser)
+      if(datuser != null){
+        this.userId = datuser.id
+      }
+      
+      this.getMovieData()
+      this.reloadData()
+
+    });    
+  }
+
+  getMovieData(){
     this.querySubscription = this.apollo.watchQuery<any>({
-      query: getReview
+      query: categoryQuery,
+      fetchPolicy: 'network-only'
+    })
+      .valueChanges
+      .subscribe((response: any) => {
+        let mymovies:Movie[]
+        mymovies = response.data.allMovies.edges;
+        
+        mymovies.map( j => {                
+          if(j.node.pk == this.currentMovie){
+            this.movieNameMovie = j.node.movieName
+            this.posterMovie = j.node.poster
+            this.descriptionMovie = j.node.description
+          }
+        })              
+      });
+  }
+
+  reloadData(){
+    this.querySubscription = this.apollo.watchQuery<any>({
+      query: getReview,
+      fetchPolicy: 'network-only'
     })
       .valueChanges
       .subscribe(({ data }) => {
-        this.dataSource = data.reviews;
-        console.log(this.dataSource)
-        let datuser:any
-        datuser = localStorage.getItem("userLogged");
-        datuser = JSON.parse(datuser)
-        this.userId = datuser.id        
+        this.dataSource = []
+        this.dataSourceActual = []
+        this.dataSource = data.reviews;          
+
+        this.dataSource.map( j => {
+          let movieid:any
+          movieid = j.movie?.pk          
+          if(movieid == this.currentMovie){
+            let mydata:any
+            mydata = j            
+            this.dataSourceActual = [...this.dataSourceActual, mydata]
+          }
+        })     
+        
+        console.log('refresh all:',this.dataSource)
+        console.log('refresh filter:',this.dataSourceActual)
+
+        this.loading = false
       });
   }
 
@@ -153,12 +234,8 @@ export class ListReviewComponent implements OnInit {
           user: this.userId,
         }
       }).subscribe(data => { 
-        let created:any
-        created = data
-        let mynewreview:Review
-        mynewreview = created.data.createReview.review
-            
-        this.dataSource = [...this.dataSource, mynewreview]
+        
+        this.reloadData()      
   
         this.editing = 0
         this.ratingSelected = 0
@@ -179,7 +256,7 @@ export class ListReviewComponent implements OnInit {
               updateReview(id: `+ this.reviewSelected +`, input: {
                 comment: "`+ this.commentAdd +`",
                 ranking: `+ this.ratingSelected +`,
-                movie: "`+ this.currentMovie +`",
+                movie: `+ this.currentMovie +`,
                 user: `+ this.userId +`,
               }) {
                 ok
@@ -203,11 +280,8 @@ export class ListReviewComponent implements OnInit {
         this.apollo.mutate({
           mutation: reviewToUpdate
         }).subscribe((data) => {          
-          let created:any
-          created = data
-          let mynewreview:Review
-          mynewreview = created.data.updateReview.review
-          console.log('review updated madafaka:',created)
+                    
+          this.reloadData()
     
           this.editing = 0
           this.ratingSelected = 0
@@ -218,6 +292,28 @@ export class ListReviewComponent implements OnInit {
     else{
       console.log('No puede dejar en blanco edit')
     }  
+  }
+
+  removeReview() {          
+      const reviewToDelete = gql(`
+          mutation deleteReview {
+            deleteReview(id: `+ this.reviewSelected +`){
+              ok
+            }
+          }
+        `);
+
+        this.apollo.mutate({
+          mutation: reviewToDelete
+        }).subscribe((data) => {          
+                              
+          this.reloadData()
+    
+          this.editing = 0
+          this.ratingSelected = 0
+          this.commentAdd = ''
+          this.reviewSelected = 0
+        });      
   }
 
   addRating(){
@@ -238,7 +334,7 @@ export class ListReviewComponent implements OnInit {
       this.reviewSelected = parseInt(myid.toString())
       this.editing = 1
 
-      this.dataSource.map( j => {
+      this.dataSourceActual.map( j => {
         if(j.id?.toString() == this.reviewSelected.toString()){          
           this.commentAdd = j.comment
           this.ratingSelected = j.ranking          
@@ -252,7 +348,7 @@ export class ListReviewComponent implements OnInit {
     const myid = id
     if(myid){
       this.reviewSelected = parseInt(myid.toString())
-      console.log('deleting:', this.reviewSelected)
+      this.removeReview()      
     }
   }
 

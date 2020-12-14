@@ -126,4 +126,16 @@ export class MovieComponent implements OnInit {
       
   }
 
+  watchReviews(id:number){
+    let datuser:any
+    datuser = localStorage.getItem("userLogged");
+    datuser = JSON.parse(datuser)
+    if(datuser != null){
+      this._router.navigate(['/list-review/' + id])
+    }
+    else{
+      this._router.navigate(['/login'])
+    }
+  }
+
 }

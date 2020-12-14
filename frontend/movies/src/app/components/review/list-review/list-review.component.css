@@ -66,9 +66,9 @@ body {
     float: left;
     border-radius: 5px;
     margin-right: 20px;
-    -webkit-filter: sepia(1);
+    /* -webkit-filter: sepia(1);
     -moz-filter: sepia(1);
-    filter: sepia(1);
+    filter: sepia(1); */
   }
   
   #card h2 {
@@ -82,7 +82,7 @@ body {
   #card p {
     font-family: courier;
     color: #555;
-    font-size: 26px;
+    font-size: 18px;
   }
   
 

@@ -1,18 +1,21 @@
-<div style="background-color: #2b2e4a; height: 100%;">
+<div style="background-color: #2b2e4a; height: 100%;" *ngIf="!loading">
 
     <br><br><br><br><br><br>
     <div class="row" *ngIf="!cargando" style="margin-left: 5%; margin-right: 5%;">
         <div class="row">
             <div id="gradient"></div>
             <div id="card" >
-                <img src="https://picsum.photos/seed/picsum/200/300"/>
-                <h2><b>Departamento: </b>depa</h2>      
-                <a class="btn-floating halfway-fab waves-effect waves-light lightblue" [routerLink]="['/']" style="margin-right: 60px;">
+                <img src="{{ posterMovie }}"/>
+                <h2><b>{{ movieNameMovie }}</b></h2> 
+                <p>
+                    {{ descriptionMovie }}
+                </p>  
+                <a class="btn-floating halfway-fab waves-effect waves-light lightblue" [routerLink]="['/movies']" style="margin-right: 60px;">
                     <i class="material-icons">keyboard_backspace</i>
                 </a>     
-                <a class="btn-floating halfway-fab waves-effect waves-light lightblue" (click)="newReview()" >
+                <!-- <a class="btn-floating halfway-fab waves-effect waves-light lightblue" (click)="reloadData()" >
                     <i class="material-icons">add</i>
-                </a>     
+                </a>      -->
             </div>
         </div>
 
@@ -21,7 +24,7 @@
     <div class="col s12 m7" style="margin-top: 100px; margin-left: 5%; margin-right: 5%;">        
         <div class="card horizontal">
           <div class="card-image">
-            <img src="https://statuslabs.com/wp-content/uploads/featuredimage.png" style="width: 150px; height: 100%;">
+            <img src="https://en.pimg.jp/064/474/251/1/64474251.jpg" style="width: 150px; height: 100%;">
           </div>
           <div class="card-stacked">            
 
@@ -39,7 +42,7 @@
                 </div>                            
             </div>
 
-            <div class="col s12" style="margin-top: 5px; margin-left: 20px; z-index: 200;">                
+            <div class="col s12" style="margin-top: 5px; margin-left: 20px;">                
 
                 <div *ngIf="ratingSelected === 0" class="col l4 left">
                     <i class="small material-icons">star_border</i>
@@ -95,7 +98,7 @@
             </div>
 
             <div class="card-action">
-                <a class="btn-floating btn-large waves-effect light-green darken-3">
+                <a class="btn-floating btn-large waves-effect light-green darken-3" (click)="newReview()">
                   <i class="material-icons">add</i>
                 </a>
                 
@@ -116,7 +119,7 @@
     
 
     <div class="row col l12" style="margin-top: 100px; background-color: #2b2e4a; padding-bottom: 2%;">
-        <div *ngFor="let review of dataSource" >
+        <div *ngFor="let review of dataSourceActual" >
             <app-item-review 
                 class="col l4 m6 s12" 
                 [dataFromParent]="review" 
@@ -127,4 +130,9 @@
         </div>        
     </div>        
 
+</div>
+
+
+<div *ngIf="loading">
+    <mat-spinner style="color: green;" ></mat-spinner>
 </div>
