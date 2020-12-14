@@ -1,5 +1,5 @@
 export class Movie {
-    Node: Node[] | any
+    node: Node | any
 
 }
 
