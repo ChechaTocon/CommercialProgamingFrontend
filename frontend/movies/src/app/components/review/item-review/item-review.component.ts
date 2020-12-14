@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Review, User, Movie, CreateReview } from '../../../models/review.model'
 
 @Component({
@@ -7,7 +7,9 @@ import { Review, User, Movie, CreateReview } from '../../../models/review.model'
   styleUrls: ['./item-review.component.css']
 })
 export class ItemReviewComponent implements OnInit {  
-  @Input() dataFromParent:Review = new Review()  
+  @Input() dataFromParent:Review = new Review() 
+  @Output() datoToParentEdit:EventEmitter<any> =  new EventEmitter()
+  @Output() datoToParentDelete:EventEmitter<any> =  new EventEmitter()
 
   public arrayRatingGiven:Array<number> = [1,2,3,4,5]
   public arrayRatingNone:Array<number> = [1,2,3,4,5]
@@ -27,6 +29,14 @@ export class ItemReviewComponent implements OnInit {
     let nonestars =  5 - stars
     this.arrayRatingNone.length = nonestars
     return this.arrayRatingNone
+  }
+
+  delete(id:any){
+    this.datoToParentDelete.emit(id)
+  }
+
+  edit(id:any){
+    this.datoToParentEdit.emit(id)
   }
 
 }
