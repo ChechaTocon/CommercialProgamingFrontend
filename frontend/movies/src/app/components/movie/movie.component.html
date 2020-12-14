@@ -1,45 +1,68 @@
- 
-   <br>
-   <br>
-   <br>
-   <br>
-   <br>
-   
-<div style="background-color: #2b2e4a; height: 1000%">
-    <br>
-    <div class="container center-align">  
-    <h1 style="font-size: 35px; color: #ffffff;">MOVIES</h1>      
-    <h1 style="font-size: 20px; color: #e6acee;">Agregar nueva pelicula</h1>      
-    <button mat-fab color="primary"[routerLink]="['movies/create']" aria-label="Agregar nueva pelicula">
-      <mat-icon>plus_one</mat-icon>
-    </button>
-    
-    <br>
-    <br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+<div>
+  <div class="row" *ngIf="loading">
+    <div class="col s12 center">
+      <mat-spinner style="margin-left: 47%;"></mat-spinner>
     </div>
-  
-    <div class="container">
-      <div class="row">
-       
-        <div *ngFor="let card of dataSource">
-          <div class="col s3">
-          <mat-card class="example-card">
-            <mat-card-header>
-              <h2>{{card.node.movieName}}</h2>
-            </mat-card-header>
-            <img mat-card-image src="{{card.node.poster}}">
-            <mat-card-content>
-              <h3 class="overflow">
-                {{card.node.description}}
-              </h3>
-            </mat-card-content>
-            <mat-card-actions> 
-              <button mat-raised-button color="primary">VER RESENA</button>
-            </mat-card-actions>
-          </mat-card>
-          <br>
+  </div>
+  <br>
+  <div *ngIf="!loading">
+    <div class="container center-align">
+      <h1 style="font-size: 35px; color: #ffffff;">MOVIES</h1>
+      <h1 style="font-size: 20px; color: #e6acee;">Agregar nueva pelicula</h1>
+      <button *ngIf="isAdmin" mat-fab color="primary" [routerLink]="['/movies/create/0']" aria-label="Agregar nueva pelicula">
+        <mat-icon>plus_one</mat-icon>
+      </button>
+
+      <br>
+      <br>
+    </div>
+    <div class="row center">
+      <div class="col s2">
+        <span (click)="catogoryFilter(0)" style="background-color: #424242;" class="new badge"
+          data-badge-caption="">Todo</span>
+      </div>
+      <div *ngFor="let c of categories" class="col s2">
+        <span (click)="catogoryFilter(c.id)" style="background-color: {{c.color}};" class="new badge"
+          data-badge-caption="">{{c.name}}</span>
       </div>
     </div>
-    </div>
-</div>
+    <br>
+    <div style="margin-left: 25px; margin-right: 25px;">
+      <div class="row">
+        <div class="col s6 m3 l2" *ngFor="let card of dataSource">
+          <mat-card style="height: 450px; width: 180px;">
 
+            <img mat-card-image src="{{card.node.poster}}">
+            <mat-card-title>
+              {{card.node.movieName}}
+            </mat-card-title>
+            <mat-card-subtitle>
+              <span (click)="catogoryFilter(card.node.category.id)"
+                style="background-color: {{card.node.category.color}};" class="new badge"
+                data-badge-caption="">{{card.node.category.name}}</span>
+            </mat-card-subtitle>
+            <br>
+            <mat-card-content class="overflow">
+              <h5>{{card.node.description}}</h5>
+            </mat-card-content>
+            <mat-card-actions>
+              <button mat-raised-button color="primary" (click)="watchReviews(card.node.pk)">Reseña</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              <button *ngIf="isAdmin" mat-mini-fab color="accent" (click)="actualizar(card.node.pk)">
+                <mat-icon>edit</mat-icon>
+              </button>
+            </mat-card-actions>
+
+          </mat-card>
+          <br>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

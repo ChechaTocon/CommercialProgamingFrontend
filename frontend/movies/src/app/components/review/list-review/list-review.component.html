@@ -1,18 +1,21 @@
-<div style="background-color: #2b2e4a; height: 100%;">
+<div style="background-color: #2b2e4a; height: 100%;" *ngIf="!loading">
 
     <br><br><br><br><br><br>
     <div class="row" *ngIf="!cargando" style="margin-left: 5%; margin-right: 5%;">
         <div class="row">
             <div id="gradient"></div>
             <div id="card" >
-                <img src="https://picsum.photos/seed/picsum/200/300"/>
-                <h2><b>Departamento: </b>depa</h2>      
-                <a class="btn-floating halfway-fab waves-effect waves-light lightblue" [routerLink]="['/']" style="margin-right: 60px;">
+                <img src="{{ posterMovie }}"/>
+                <h2><b>{{ movieNameMovie }}</b></h2> 
+                <p>
+                    {{ descriptionMovie }}
+                </p>  
+                <a class="btn-floating halfway-fab waves-effect waves-light lightblue" [routerLink]="['/movies']" style="margin-right: 60px;">
                     <i class="material-icons">keyboard_backspace</i>
                 </a>     
-                <a class="btn-floating halfway-fab waves-effect waves-light lightblue" (click)="newReview()" >
+                <!-- <a class="btn-floating halfway-fab waves-effect waves-light lightblue" (click)="reloadData()" >
                     <i class="material-icons">add</i>
-                </a>     
+                </a>      -->
             </div>
         </div>
 
@@ -21,25 +24,93 @@
     <div class="col s12 m7" style="margin-top: 100px; margin-left: 5%; margin-right: 5%;">        
         <div class="card horizontal">
           <div class="card-image">
-            <img src="https://statuslabs.com/wp-content/uploads/featuredimage.png" style="width: 150px; height: 100%;">
+            <img src="https://en.pimg.jp/064/474/251/1/64474251.jpg" style="width: 150px; height: 100%;">
           </div>
           <div class="card-stacked">            
 
             <div class="col s12">
                 <div class="col s12">
                     <div class="input-field" style="margin-top: 20px; margin-left: 20px; width: 80%;">
-                        <textarea id="comment" type="text" class="materialize-textarea"></textarea>
-                        <label for="comment">Agregar commentario...</label>
+                        <textarea 
+                            [(ngModel)]="commentAdd" 
+                            [ngModelOptions]="{standalone: true}" 
+                            id="comment" type="text"
+                            placeholder="Agregar comentario..."
+                            class="materialize-textarea"></textarea>
+                        <label class="active" for="comment">Comentario</label>
                     </div>
                 </div>                            
             </div>
 
-            <div class="col s12" style="margin-top: 20px;">                                    
-                <mat-slider></mat-slider>
+            <div class="col s12" style="margin-top: 5px; margin-left: 20px;">                
+
+                <div *ngIf="ratingSelected === 0" class="col l4 left">
+                    <i class="small material-icons">star_border</i>
+                    <i class="small material-icons">star_border</i>
+                    <i class="small material-icons">star_border</i>
+                    <i class="small material-icons">star_border</i>
+                    <i class="small material-icons">star_border</i>
+                </div>
+                <div *ngIf="ratingSelected === 1" class="col l4 left">
+                    <i style="color: yellow;" class="small material-icons">star</i>
+                    <i class="small material-icons">star_border</i>
+                    <i class="small material-icons">star_border</i>
+                    <i class="small material-icons">star_border</i>
+                    <i class="small material-icons">star_border</i>
+                </div>
+                <div *ngIf="ratingSelected === 2" class="col l4 left">
+                    <i style="color: yellow;" class="small material-icons">star</i>
+                    <i style="color: yellow;" class="small material-icons">star</i>
+                    <i class="small material-icons">star_border</i>
+                    <i class="small material-icons">star_border</i>
+                    <i class="small material-icons">star_border</i>
+                </div>
+                <div *ngIf="ratingSelected === 3" class="col l4 left">
+                    <i style="color: yellow;" class="small material-icons">star</i>
+                    <i style="color: yellow;" class="small material-icons">star</i>
+                    <i style="color: yellow;" class="small material-icons">star</i>
+                    <i class="small material-icons">star_border</i>
+                    <i class="small material-icons">star_border</i>
+                </div>
+                <div *ngIf="ratingSelected === 4" class="col l4 left">
+                    <i style="color: yellow;" class="small material-icons">star</i>
+                    <i style="color: yellow;" class="small material-icons">star</i>
+                    <i style="color: yellow;" class="small material-icons">star</i>
+                    <i style="color: yellow;" class="small material-icons">star</i>
+                    <i class="small material-icons">star_border</i>
+                </div>
+                <div *ngIf="ratingSelected === 5" class="col l4 left">
+                    <i style="color: yellow;" class="small material-icons">star</i>
+                    <i style="color: yellow;" class="small material-icons">star</i>
+                    <i style="color: yellow;" class="small material-icons">star</i>
+                    <i style="color: yellow;" class="small material-icons">star</i>
+                    <i style="color: yellow;" class="small material-icons">star</i>
+                </div>
+                        
+                <div class="col s4 left" style="width: 300px; margin-left: 20px;">                    
+                    <button style="background-color: black; border-radius: 20px;" (click)="removeRating()">
+                        <i style="color: white; background-color: black; border-radius: 24px;" class="small material-icons">keyboard_arrow_left</i>
+                    </button>
+                    <button style="background-color: black; margin-right: 5px; border-radius: 20px;" (click)="addRating()">
+                        <i style="color: white; background-color: black; border-radius: 24px;" class="small material-icons">keyboard_arrow_right</i>
+                    </button>                    
+                </div>
             </div>
 
             <div class="card-action">
-              <a href="#">This is a link</a>
+                <a class="btn-floating btn-large waves-effect light-green darken-3" (click)="newReview()">
+                  <i class="material-icons">add</i>
+                </a>
+                
+                <a class="btn-floating btn-large waves-effect cyan darken-4" 
+                    *ngIf="editing == 1" (click)="modifyReview()">
+                    <i class="material-icons">edit</i>
+                </a>
+
+                <a class="btn-floating btn-large waves-effect red darken-4" 
+                    *ngIf="editing == 1" (click)="cancelEdit()">
+                    <i class="material-icons">close</i>
+                </a>
             </div>
           </div>
         </div>
@@ -48,9 +119,20 @@
     
 
     <div class="row col l12" style="margin-top: 100px; background-color: #2b2e4a; padding-bottom: 2%;">
-        <div *ngFor="let review of dataSource" >
-            <app-item-review class="col l4 m6 s12" [dataFromParent]="review"></app-item-review>            
+        <div *ngFor="let review of dataSourceActual" >
+            <app-item-review 
+                class="col l4 m6 s12" 
+                [dataFromParent]="review" 
+                (datoToParentDelete)="deleteReview($event)" 
+                (datoToParentEdit)="editReview($event)"
+            >
+            </app-item-review>            
         </div>        
     </div>        
 
+</div>
+
+
+<div *ngIf="loading">
+    <mat-spinner style="color: green;" ></mat-spinner>
 </div>

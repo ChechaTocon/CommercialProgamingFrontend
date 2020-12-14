@@ -10,8 +10,8 @@ export class CreateReview {
 
 export class Review {
     id: number | undefined;
-    comment: string | undefined;
-    ranking: number | undefined;
+    comment: string = '';
+    ranking: number = 0;
     createdAt: string | undefined;
     updatedAt: string | undefined;
     user: User | undefined;
@@ -19,7 +19,7 @@ export class Review {
 }
 
 export class User {
-    userId: number | undefined;
+    id: number | undefined;
     username: string | undefined;
     name: string | undefined;
     surname: string | undefined;
@@ -31,6 +31,7 @@ export class User {
 
 export class Movie {
     id: number | undefined;
+    pk: number | undefined;
     poster: string | undefined;
     movieName: string | undefined;
     description: string | undefined;    
