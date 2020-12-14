@@ -33,5 +33,6 @@
     "gulp-zip": "^5.0.2",
     "nodemon": "^2.0.4",
     "webpack-stream": "^6.1.0"
-  }
+  },
+  "engines" : { "node" : ">=0.12" } 
 }
