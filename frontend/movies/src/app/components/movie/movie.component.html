@@ -51,7 +51,7 @@
             <mat-card-content class="overflow">
               <h5>{{card.node.description}}</h5>
             </mat-card-content>
-            <mat-card-actions
+            <mat-card-actions>
               <button mat-raised-button color="primary" [routerLink]="['/list-review/card.node.pk']">Reseña</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
               <button *ngIf="isAdmin" mat-mini-fab color="accent" (click)="actualizar(card.node.pk)">
                 <mat-icon>edit</mat-icon>
