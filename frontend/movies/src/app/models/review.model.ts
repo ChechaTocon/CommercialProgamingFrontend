@@ -10,8 +10,8 @@ export class CreateReview {
 
 export class Review {
     id: number | undefined;
-    comment: string | undefined;
-    ranking: number | undefined;
+    comment: string = '';
+    ranking: number = 0;
     createdAt: string | undefined;
     updatedAt: string | undefined;
     user: User | undefined;
