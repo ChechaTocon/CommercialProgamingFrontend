@@ -3,12 +3,12 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { Subscription } from 'rxjs'
 import { Apollo } from 'apollo-angular';
 import gql from 'graphql-tag';
-
 import { Category } from '../../../models/category.model'
-import { ActivatedRoute, Router } from "@angular/router"
+import { Router, ActivatedRoute, Params } from "@angular/router";
+
 const categoryQuery = gql`
   query {
-    category {
+    categories {
       id
       name
       color
@@ -29,24 +29,7 @@ const createMovie = gql`
       }
       }`;
 
-const updateMovie = gql`
-      mutation updateMovie($id: String!, $poster: String!, $movieName: String!, $description:String!)
-      {
-      updateMovie(id:"TW92aWVOb2RlOjE%3D", poster: "dasda", movieName: "asd", description: "dasfdfdda")
-      {
-        movie{
-          poster,
-          movieName,
-          description,
-          category{
-            id,
-            name,
-            color
-          }
-        }
-      }
-    }
-  `
+
 
 
 const movieQuery = gql`
@@ -55,6 +38,7 @@ query {
   edges{
     node{
       id,
+      pk,
       poster,
       movieName,
       description,
@@ -113,22 +97,60 @@ export class CreatedMovieComponent implements OnInit {
     this.idactualizar = ''
   }
   crear() {
-    this.apollo
-      .mutate({
-        mutation: createMovie,
-        variables: {
-          movieName: this.nombreFormControl.value,
-          description: this.descripcionFormControl.value,
-          poster: this.posterFormControl.value,
-          category: this.categoriaFormControl.value
-        }
-      })
-      .subscribe(
-        ({ data }) => {
-          console.log(data)
+    if (this.idactualizar === '0') {
+      this.apollo
+        .mutate({
+          mutation: createMovie,
+          variables: {
+            movieName: this.nombreFormControl.value,
+            description: this.descripcionFormControl.value,
+            poster: this.posterFormControl.value,
+            category: this.categoriaFormControl.value
+          }
+        })
+        .subscribe(() => {
           this._router.navigate(['/movies'])
+          window.open('/movies','_self')
         }
-      );
+        );
+    }
+    else {
+      const updateMovie = gql(`
+      mutation updateMovie
+      {
+      updateMovie(id:"`+ this.idactualizar + `", poster:"` + this.posterFormControl.value + `" , movieName:"` + this.nombreFormControl.value + `" , description: "` + this.descripcionFormControl.value + `", category:  "` + this.categoriaFormControl.value + `" )
+      {
+        movie{
+          id,
+          poster,
+          movieName,
+          description,
+          category{
+            id,
+            name,
+            color
+          }
+        }
+      }
+    }
+  `);
+      this.apollo
+        .mutate({
+          mutation: updateMovie,
+          variables: {
+            id: this.nombreFormControl.value,
+            description: this.descripcionFormControl.value,
+            poster: this.posterFormControl.value,
+            category: this.categoriaFormControl.value
+          }
+        })
+        .subscribe(() => {
+          this._router.navigate(['/movies'])
+          window.open('/movies','_self')
+        }
+        );
+    }
+
 
 
 
@@ -144,12 +166,13 @@ export class CreatedMovieComponent implements OnInit {
       .subscribe((response) => {
         this.dataSource = response.data.allMovies.edges;
         this.dataSource.map((d: any) => {
-          if (d.node.id == id) {
+          console.log(d)
+          if (d.node.pk == id) {
             this.nombreFormControl.setValue(d.node.movieName)
             this.descripcionFormControl.setValue(d.node.description)
             this.posterFormControl.setValue(d.node.poster)
             this.categoriaFormControl.setValue(d.node.category.id)
-            console.log(d)
+            this.idactualizar = d.node.pk
           }
         })
       });
@@ -167,8 +190,8 @@ export class CreatedMovieComponent implements OnInit {
     })
       .valueChanges
       .subscribe(({ data }) => {
-        console.log(data.category)
-        this.listCategory = data.category
+        console.log(data.categories)
+        this.listCategory = data.categories
       });
 
 
