@@ -10,10 +10,10 @@
     </a>
     </div>
     
-    <ul class="left hide-on-med-and-down" >      
+    <ul id="nav-mobile" >
       <li *ngIf="!loggedButtons"><a  style="height: 100px; padding: 15px; font-size: large;" [routerLink]="['/login']" routerLinkActive="router-link-active" >Iniciar Sesión </a> </li>      
       <li *ngIf="loggedButtons"><a  style="height: 100px; padding: 15px; font-size: large;" (click)="logOut()" routerLinkActive="router-link-active" > <mat-icon style="margin-top:18px; font-size: 35px;">exit_to_app</mat-icon></a></li>      
-      <li *ngIf="loggedButtons && isAdmin"><a  style="height: 100px; padding: 15px; font-size: large;" [routerLink]="['/category']" routerLinkActive="router-link-active" > Categorias</a></li>            
+      <li *ngIf="loggedButtons && isAdmin"><a  style="height: 100px; padding: 15px; font-size: large;" [routerLink]="['/category']" routerLinkActive="router-link-active" > Categorias</a></li>
     </ul>
   </div>
 </nav>
