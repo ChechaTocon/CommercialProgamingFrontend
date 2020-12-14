@@ -14,7 +14,7 @@
   <div *ngIf="!loading">
     <div class="container center-align">
       <h1 style="font-size: 35px; color: #ffffff;">MOVIES</h1>
-      <h1 style="font-size: 20px; color: #e6acee;">Agregar nueva pelicula</h1>
+      <h1 *ngIf="isAdmin" style="font-size: 20px; color: #e6acee;">Agregar nueva pelicula</h1>
       <button *ngIf="isAdmin" mat-fab color="primary" [routerLink]="['/movies/create/0']" aria-label="Agregar nueva pelicula">
         <mat-icon>plus_one</mat-icon>
       </button>
@@ -23,19 +23,19 @@
       <br>
     </div>
     <div class="row center">
-      <div class="col s2">
-        <span (click)="catogoryFilter(0)" style="background-color: #424242;" class="new badge"
-          data-badge-caption="">Todo</span>
+      <div class="col col s6 m4 l2">
+        <button mat-raised-button (click)="catogoryFilter(0)" style="margin-bottom:20px; font-size: large; background-color: #e84545;" class="new badge"
+          data-badge-caption="">Todas las peliculas</button>
       </div>
-      <div *ngFor="let c of categories" class="col s2">
-        <span (click)="catogoryFilter(c.id)" style="background-color: {{c.color}};" class="new badge"
-          data-badge-caption="">{{c.name}}</span>
+      <div *ngFor="let c of categories" class="col col s6 m4 l2">
+        <button mat-raised-button (click)="catogoryFilter(c.id)" style="margin-bottom:20px; font-size: large; background-color: {{c.color}};" class="new badge"
+          data-badge-caption="">{{c.name}}</button>
       </div>
     </div>
     <br>
     <div style="margin-left: 25px; margin-right: 25px;">
       <div class="row">
-        <div class="col s6 m3 l2" *ngFor="let card of dataSource">
+        <div class="col s6 m4 l2" *ngFor="let card of dataSource">
           <mat-card style="height: 450px; width: 180px;">
 
             <img mat-card-image src="{{card.node.poster}}">
