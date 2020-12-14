@@ -52,8 +52,10 @@
               <h5>{{card.node.description}}</h5>
             </mat-card-content>
             <mat-card-actions>
-              <button mat-raised-button color="primary">VER RESENA</button>
-              <button mat-raised-button color="primary" (click)="actualizar(card.node.id)">Actualizar</button>
+              <button mat-raised-button color="primary">Reseña</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              <button mat-mini-fab color="accent" (click)="actualizar(card.node.id)">
+                <mat-icon>edit</mat-icon>
+              </button>
             </mat-card-actions>
 
           </mat-card>
