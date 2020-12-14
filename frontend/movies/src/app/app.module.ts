@@ -34,6 +34,7 @@ import { AddReviewComponent } from './components/review/add-review/add-review.co
 import { ReactiveFormsModule } from '@angular/forms';
 import { CreateCategoryComponent } from './components/categoria/create-category/create-category.component';
 import { MAT_COLOR_FORMATS, NgxMatColorPickerModule, NGX_MAT_COLOR_FORMATS } from '@angular-material-components/color-picker';
+import { ItemReviewComponent } from './components/review/item-review/item-review.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -44,7 +45,8 @@ import { MAT_COLOR_FORMATS, NgxMatColorPickerModule, NGX_MAT_COLOR_FORMATS } fro
     CreatedMovieComponent,
     ListReviewComponent,
     AddReviewComponent,
-    CreateCategoryComponent
+    CreateCategoryComponent,
+    ItemReviewComponent
   ],
   imports: [
     BrowserModule,
