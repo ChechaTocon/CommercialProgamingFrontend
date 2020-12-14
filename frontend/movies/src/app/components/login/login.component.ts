@@ -62,9 +62,12 @@ export class LoginComponent implements OnInit {
     this.cargando=false
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.user=new User();
+  }
 
   LogIn() {
+    console.log(this.user)
     this.cargando=true;
     this.apollo.mutate({
       mutation: USER_LOGIN,
