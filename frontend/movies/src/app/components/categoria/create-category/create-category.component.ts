@@ -74,6 +74,7 @@ export class CreateCategoryComponent implements OnInit {
       mutation: sendCategory
     }).subscribe(() => {
       this._router.navigate(['/category'])
+      window.open('/category', '_self')
     });
   }
 
