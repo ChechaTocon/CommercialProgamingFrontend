@@ -10,10 +10,9 @@
     <div class="container center-align">  
     <h1 style="font-size: 35px; color: #ffffff;">MOVIES</h1>      
     <h1 style="font-size: 20px; color: #e6acee;">Agregar nueva pelicula</h1>      
-    <button mat-fab color="primary"[routerLink]="['movies/create']" aria-label="Agregar nueva pelicula">
+    <button mat-fab color="primary" (click)="agregar()" aria-label="Agregar nueva pelicula">
       <mat-icon>plus_one</mat-icon>
-    </button>
-    
+    </button>    
     <br>
     <br>
     </div>
@@ -34,7 +33,8 @@
               </h3>
             </mat-card-content>
             <mat-card-actions> 
-              <button mat-raised-button color="primary">VER RESENA</button>
+              <button mat-raised-button color="primary" >VER RESENA</button>
+              <button mat-raised-button color="primary" (click)="actualizar(card.node.id)">Actualizar</button>
             </mat-card-actions>
           </mat-card>
           <br>

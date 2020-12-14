@@ -1,6 +1,7 @@
 import { flatten } from "@angular/compiler";
 import { Component, DoCheck } from "@angular/core";
 import { Router } from "@angular/router";
+import { Apollo } from "apollo-angular";
 
 @Component({
   selector: 'app-root',
@@ -13,7 +14,8 @@ export class AppComponent implements DoCheck {
   isAdmin=false;
 
   constructor(
-    private _router: Router
+    private _router: Router,
+    private apollo: Apollo,
   ){
     
   }
@@ -38,6 +40,7 @@ export class AppComponent implements DoCheck {
   }
 
   logOut(){
+    this.apollo.getClient().resetStore();
     localStorage.removeItem('userLogged')
     localStorage.removeItem('token')
     this._router.navigate(['/login'])
