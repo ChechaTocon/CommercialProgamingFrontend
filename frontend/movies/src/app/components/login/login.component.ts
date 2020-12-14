@@ -26,7 +26,8 @@ query{
     id
     username,
     lastName,
-    email
+    email,
+    isStaff
   }
 }
 `;
@@ -58,20 +59,23 @@ export class LoginComponent implements OnInit {
     private _router: Router,
   ) {
     this.user = new User();    
+    this.cargando=false
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.user=new User();
+  }
 
   LogIn() {
-
+    console.log(this.user)
+    this.cargando=true;
     this.apollo.mutate({
       mutation: USER_LOGIN,
       variables: {
         username: this.user.username,
         password: this.user.password
       }
-    }).subscribe((response:any) => {
-      
+    }).subscribe((response:any) => {      
       console.log('got data', response);
       let token=response.data.tokenAuth.token;
       localStorage.setItem("token", token);
@@ -79,6 +83,9 @@ export class LoginComponent implements OnInit {
 
     },(error) => {
       console.log('there was an error sending the query', error);
+      this.cargando=false
+      this.status="error"
+      
     });
   
   }
@@ -88,8 +95,16 @@ export class LoginComponent implements OnInit {
       query: GET_USER_DATA
     })
       .valueChanges
-      .subscribe(({ data }) => {
-        console.log(data)        
+      .subscribe(( response:any ) => {
+        console.log(response)
+        var user=response.data.me
+        localStorage.setItem("userLogged", JSON.stringify(user));
+        this.cargando=false                
+        this.status="success"
+        this._router.navigate(["/movies"]);   
+      },(error)=>{
+        console.log(error)
+        
       });
   }
 }

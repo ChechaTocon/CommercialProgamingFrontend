@@ -32,7 +32,7 @@
                 type="text"
                 class="validate"
                 required
-                pattern="[a-zA-Z]{5,12}"
+                pattern="^[a-zA-ZÀ-ÿ\u00f1\u00d1]+(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1]*)*[a-zA-ZÀ-ÿ\u00f1\u00d1]+$"
                 [(ngModel)]="user.name"
               />
               <label for="nombre">Nombre</label>
@@ -44,7 +44,7 @@
                 type="text"
                 class="validate"
                 required
-                pattern="[a-zA-Z]{5,12}"
+                pattern="^[a-zA-ZÀ-ÿ\u00f1\u00d1]+(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1]*)*[a-zA-ZÀ-ÿ\u00f1\u00d1]+$"
                 [(ngModel)]="user.surname"
               />
               <label for="apellido">Apellido</label>
@@ -84,8 +84,7 @@
         <div class="row" *ngIf="!cargando">
           <div class="col s12">
             <div class="alert alert-success" *ngIf="status == 'success'">
-              <h1>Ha iniciado sesión correctamente</h1>
-              <a [routerLink]="['/inicio']">Ingresa aquí</a>
+              <h1>Te Haz registrado correctamente</h1>              
             </div>
             <div class="alert alert-danger" *ngIf="status == 'error'">
               <h1 style="color: red">
@@ -93,15 +92,28 @@
               </h1>
             </div>
             <button
+              *ngIf="!isValid"
               class="btn-large waves-effect"
               style="background-color: #e84545"
               type="submit"
               name="action"
               (click)="Register()"
+              disabled="true"
             >
               Registrar
               <i class="material-icons right">send</i>
             </button>
+            <button
+            *ngIf="isValid"
+            class="btn-large waves-effect"
+            style="background-color: #e84545"
+            type="submit"
+            name="action"
+            (click)="Register()"            
+          >
+            Registrar
+            <i class="material-icons right">send</i>
+          </button>
           </div>
         </div>
         <div class="input-field col s1"></div>
