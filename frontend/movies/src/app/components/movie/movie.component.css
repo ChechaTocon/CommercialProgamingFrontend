@@ -1,22 +1,26 @@
 .example-card {
-    max-width: 300px;
-  }
-  
-  .example-header-image {
-    background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
-    background-size: cover;
-  }
-  
+  max-width: 300px;
+}
 
-  mat-card img{
-    min-height: 260px;
-    max-height: 260px;
-    }
+.example-header-image {
+  background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
+  background-size: cover;
+}
 
-  mat-card-content {
 
-      overflow: hidden;
-      white-space: nowrap;
-      text-overflow: ellipsis;
+mat-card img {
+  min-height: 260px;
+  max-height: 260px;
+}
 
-    }
+mat-card-content {
+
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+
+}
+
+.collapsible span.badge {
+  margin: 0 auto 0 0;
+}
