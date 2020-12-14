@@ -46,6 +46,8 @@ const categoriesQuery = gql`
 })
 export class MovieComponent implements OnInit {
   loading: boolean = true
+  buttons: boolean = false
+  isAdmin: boolean = false
   dataSource: Movie[] = []
   dataSourceTemp: Movie[] = []
   categories: Category[] = []
@@ -57,6 +59,25 @@ export class MovieComponent implements OnInit {
     private _route: ActivatedRoute
   ) {
     this.dataSource = []
+  }
+
+  ngDoCheck() {
+    let identity: any
+    identity = localStorage.getItem('userLogged')
+    if (identity === null) {
+      this.buttons = false
+    } else {
+      this.buttons = true
+      identity = JSON.parse(identity)
+      console.log(identity)
+      if (identity.isStaff) {
+        console.log("es admin el perro")
+        this.isAdmin = true
+      } else {
+        this.isAdmin = false
+        console.log("no es admin wacala")
+      }
+    }
   }
 
   catogoryFilter(categoryId: number | undefined) {
