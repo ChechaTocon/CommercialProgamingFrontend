@@ -14,10 +14,21 @@ export class ItemReviewComponent implements OnInit {
   public arrayRatingGiven:Array<number> = [1,2,3,4,5]
   public arrayRatingNone:Array<number> = [1,2,3,4,5]
 
+  public showButtons:boolean = false
+  public currentUser:number = 0
+
   constructor() {        
   }
 
   ngOnInit(): void {
+    let datuser:any
+    datuser = localStorage.getItem("userLogged");
+    datuser = JSON.parse(datuser)
+    if(datuser != null){
+      if(this.dataFromParent.user?.id == datuser.id){
+        this.showButtons = true
+      }
+    }    
   }
 
   myRating(stars:number = 1){

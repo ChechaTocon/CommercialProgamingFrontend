@@ -25,8 +25,12 @@
         {{ dataFromParent.comment }}               
     </div>
     <div class="actions">      
-      <button (click)="delete(dataFromParent.id)" ><i style="color: red;" class="small material-icons">delete_outline</i></button>
-      <button (click)="edit(dataFromParent.id)" style="margin-left: 10px;" ><i style="color: blue;" class="small material-icons">edit</i></button>
+      <button (click)="delete(dataFromParent.id)" *ngIf="showButtons">
+        <i style="color: red;" class="small material-icons">delete_outline</i>
+      </button>
+      <button (click)="edit(dataFromParent.id)" style="margin-left: 10px;" *ngIf="showButtons" >
+        <i style="color: blue;" class="small material-icons">edit</i>
+      </button>
     </div>
     </div>
    
