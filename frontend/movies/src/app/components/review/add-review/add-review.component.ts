@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Dialog } from '../../../models/review.model'
 
 @Component({
   selector: 'app-add-review',
@@ -7,9 +9,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AddReviewComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    public dialogRef: MatDialogRef<AddReviewComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: Dialog
+  ) { }
 
   ngOnInit(): void {
+  }
+
+  clickNo(): void {
+    this.dialogRef.close()
   }
 
 }
