@@ -15,7 +15,7 @@
     <div class="container center-align">
       <h1 style="font-size: 35px; color: #ffffff;">MOVIES</h1>
       <h1 style="font-size: 20px; color: #e6acee;">Agregar nueva pelicula</h1>
-      <button mat-fab color="primary" [routerLink]="['/movies/create/0']" aria-label="Agregar nueva pelicula">
+      <button *ngIf="isAdmin" mat-fab color="primary" [routerLink]="['/movies/create/0']" aria-label="Agregar nueva pelicula">
         <mat-icon>plus_one</mat-icon>
       </button>
 
@@ -51,9 +51,9 @@
             <mat-card-content class="overflow">
               <h5>{{card.node.description}}</h5>
             </mat-card-content>
-            <mat-card-actions>
+            <mat-card-actions
               <button mat-raised-button color="primary" [routerLink]="['/list-review/card.node.pk']">Reseña</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-              <button mat-mini-fab color="accent" (click)="actualizar(card.node.pk)">
+              <button *ngIf="isAdmin" mat-mini-fab color="accent" (click)="actualizar(card.node.pk)">
                 <mat-icon>edit</mat-icon>
               </button>
             </mat-card-actions>
