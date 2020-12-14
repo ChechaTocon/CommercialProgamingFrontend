@@ -9,7 +9,7 @@ import {
 import { HttpLink } from 'apollo-angular/http';
 import { setContext } from '@apollo/client/link/context';
 
-const uri = 'http://127.0.0.1:8000/graphql/'; // <-- add the URL of the GraphQL server here
+const uri = 'https://gecko-reviews-backend.herokuapp.com/graphql/'; // <-- add the URL of the GraphQL server here
 export function createApollo(httpLink: HttpLink): ApolloClientOptions<any> {
   const basic = setContext((operation, context) => ({
     headers: {
