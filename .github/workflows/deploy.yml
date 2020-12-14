@@ -27,6 +27,10 @@ jobs:
       - uses: actions/setup-node@v2.1.3
         with:
           node-version: 12.18.3
-      - run: npm ci
-      - run: npm run build
+      - name: llendo a angular  
+        run: cd frontend/movies
+      - name: Continous delivery
+        run: npm ci
+      - name: haciendo el ng build en la app        
+        run: npm run build
  
