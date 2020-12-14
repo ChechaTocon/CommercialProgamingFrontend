@@ -1,1 +1,97 @@
-<p>created-movie works!</p>
+<br />
+<br />
+<br />
+<br />
+<br />
+<div style="background-color: #2b2e4a; height: 100%">
+  <div class="container center-align">
+    <br />
+    <div class="row outsidecont" style="background-color: #53354a">
+      <br />
+      <br />
+      <div class="input-field col s1"></div>
+      <div class="col s10 white insidecont">
+        <br />
+        <br />
+        <div class="row">
+          <div class="row margin">
+            <div class="col s12 m12 l12 center">
+              <img
+                src="../../assets/register.svg"
+                alt=""              
+                style="width: 20%"
+              />
+            </div>
+          </div>
+          <h1 style="font-size: 35px">Registro de Pelicula</h1>
+          <form [formGroup]="validarForm">
+             
+          <div class="row">
+            <div class="input-field col s5 offset-s1">
+              <input
+                id="nombre"
+                name="nombre"
+                type="text"
+                required
+                formControlName="nombre"
+              />
+              <label for="nombre">Nombre</label>
+            </div>
+            <div class="input-field col s5">
+              <input
+                type="text"
+                class="validate"
+                required
+                formControlName="descripcion"
+              />
+              <label for="apellido">Descripcion</label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="input-field col s5 offset-s1">
+              <input
+                id="nombreUsuario"
+                name="nombre"
+                type="text"
+                class="validate"
+                required
+                formControlName="poster"
+              />
+              <label for="nombreUsuario">Portada</label>
+            </div>          
+            <div class="input-field col s5 ">
+                <mat-form-field class="example-full-width" style="width: 80%; background-color: #cfafe2;">
+                    <mat-label style="color:#000000">Seleccionar</mat-label>
+                    <mat-select  matTooltip="Seleccione una categoria" class='validate'
+                        name='category_id' formControlName="categoria">
+                        <mat-option *ngFor="let category of listCategory" [value]="category.id">
+                            {{category.name}}
+                        </mat-option>
+                    </mat-select>
+                    <mat-hint style="color:#000000" align="end">categoria</mat-hint>
+                </mat-form-field>
+              </div>
+        </div>
+        </form>
+      
+        <div class="input-field col"></div>
+        <button
+        class="btn-large waves-effect"
+        style="background-color: #e84545;"            
+        type="submit"
+        name="action"
+        (click)="crear()"
+      >
+        AGREGAR
+        <i class="material-icons right">add</i>
+      </button>  
+      </div>                 
+    </div>  
+    <div class="row">
+      <br>            
+    </div>  
+    <div class="row">
+      <br>            
+    </div>     
+  </div>    
+</div>

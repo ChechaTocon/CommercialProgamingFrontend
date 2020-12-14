@@ -3,6 +3,7 @@ import { Subscription } from 'rxjs'
 import { Apollo } from 'apollo-angular';
 import gql from 'graphql-tag';
 import { Movie } from '../../models/movie.model'
+import {Router, ActivatedRoute, Params} from '@angular/router';
 
 const categoryQuery = gql`
 query {
@@ -38,11 +39,22 @@ export class MovieComponent implements OnInit {
   private querySubscription: Subscription | undefined;
 
   constructor(
-    private apollo:Apollo
+    private apollo:Apollo,
+    private _router:Router,
+    private _route:ActivatedRoute
   ) {
          this.dataSource = []
   }
 
+    agregar()
+    {
+      this._router.navigate(['movies/create/0'])
+    }
+    actualizar(id: number)
+    {
+      //la ruta de resena
+      this._router.navigate(['movies/create/'+id])
+    }
   ngOnInit(): void {
     this.querySubscription = this.apollo.watchQuery<any>({
       query: categoryQuery
