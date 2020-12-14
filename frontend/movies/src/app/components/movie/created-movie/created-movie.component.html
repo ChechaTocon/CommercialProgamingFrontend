@@ -34,17 +34,20 @@
                 type="text"
                 required
                 formControlName="nombre"
+                placeholder="Nombre"
               />
-              <label for="nombre">Nombre</label>
+              <label class="active" for="nombre">Nombre</label>
             </div>
             <div class="input-field col s5">
               <input
+                id="descripcion"
                 type="text"
                 class="validate"
                 required
                 formControlName="descripcion"
+                placeholder="Descripcion"
               />
-              <label for="apellido">Descripcion</label>
+              <label class="active" for="descripcion">Descripcion</label>
             </div>
           </div>
           <div class="row">
@@ -56,25 +59,28 @@
                 class="validate"
                 required
                 formControlName="poster"
+                placeholder="Portada"
               />
-              <label for="nombreUsuario">Portada</label>
+              <label class="active" for="nombreUsuario">Portada</label>
             </div>          
             <div class="input-field col s5 ">
-                <mat-form-field class="example-full-width" style="width: 80%; background-color: #cfafe2;">
-                    <mat-label style="color:#000000">Seleccionar</mat-label>
+                <mat-form-field class="example-full-width" style="width: 80%; background-color: #424242;">
+                    <mat-label style="color:#ffffff">Seleccionar</mat-label>
                     <mat-select  matTooltip="Seleccione una categoria" class='validate'
                         name='category_id' formControlName="categoria">
                         <mat-option *ngFor="let category of listCategory" [value]="category.id">
                             {{category.name}}
                         </mat-option>
                     </mat-select>
-                    <mat-hint style="color:#000000" align="end">categoria</mat-hint>
+                    <mat-hint style="color:#ffffff" align="end">categoria</mat-hint>
                 </mat-form-field>
               </div>
         </div>
         </form>
       
         <div class="input-field col"></div>
+        <img height="400px" width="auto" src={{posterFormControl.value}}>
+        <br>
         <button
         class="btn-large waves-effect"
         style="background-color: #e84545;"            

@@ -12,6 +12,7 @@ query {
   edges{
     node{
       id,
+      pk,
       poster,
       movieName,
       description,
@@ -30,14 +31,14 @@ query {
   }
 `;
 const categoriesQuery = gql`
- query {
-  categories {
-    id
-    name
-    color
-    createdAt
+  query {
+    categories {
+      id
+      name
+      color
+      createdAt
+    }
   }
-}
 `;
 @Component({
   selector: 'app-movie',
@@ -96,14 +97,14 @@ export class MovieComponent implements OnInit {
 
   }
 
-  agregar() {
-    this._router.navigate(['movies/create/0'])
-  }
+
   actualizar(id: number) {
     //la ruta de resena
     this._router.navigate(['movies/create/' + id])
   }
   ngOnInit(): void {
+    console.log("DEspues de actualizar o crear")
+   
     this.querySubscription = this.apollo.watchQuery<any>({
       query: categoryQuery
     })
@@ -122,6 +123,7 @@ export class MovieComponent implements OnInit {
         this.categories = data.categories;
         this.loading = false
       });
+      
   }
 
 }
