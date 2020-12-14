@@ -1,1 +1,17 @@
-<p>add-review works!</p>
+<div>
+    <div mat-dialog-content>
+        <h1><b>{{data.accion}}</b></h1>
+        <div class="row">
+            <div class="input-field col s12">
+                <label for="nombreBolsa" class="active">Departamento</label>
+                <input id="nombreBolsa" placeholder="Ingrese nombre del departamento" type="text" [(ngModel)]="data.municipio">
+            </div>
+        </div>
+    </div>
+    <div mat-dialog-actions class="row center">
+        <button mat-button (click)="clickNo()" style="margin-left: 4%; background-color: white; color: red;
+        border: 3px solid red;">Cerrar</button>
+        <button mat-button cdkFocusInitial [mat-dialog-close]="data" style="margin-left: 4%; background-color: white; color: #436f8a;
+        border: 3px solid #436f8a;">{{data.button}}</button>
+    </div>
+</div>
