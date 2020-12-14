@@ -13,7 +13,7 @@ const routes: Routes = [
   { path: 'register', component: RegisterComponent },
   { path: 'category', component: CategoriaComponent },
   { path: 'movies', component: MovieComponent },
-  { path: 'movies/create', component: CreatedMovieComponent },
+  { path: 'movies/create/:id', component: CreatedMovieComponent },
   { path: 'list-review/:id', component: ListReviewComponent },
   { path: 'category/:id', component: CreateCategoryComponent }
 
