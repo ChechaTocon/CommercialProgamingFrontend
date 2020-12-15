@@ -37,6 +37,6 @@ jobs:
       - name: Push Build to Releases
         uses: ncipollo/release-action@v1
         with:
-          artifacts: "frontend/movies/dist/movies/*"
+          artifacts: "dist/movies/*"
           token: ${{ secrets.TOKEN }}
  
