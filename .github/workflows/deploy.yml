@@ -34,4 +34,9 @@ jobs:
       - name: haciendo el ng build en la app        
         run: npm run build
         working-directory: ${{env.working-directory}}
+      - name: Push Build to Releases
+        uses: ncipollo/release-action@v1
+        with:
+          artifacts: "dist/movies/*"
+          token: ${{ secrets.TOKEN }}
  
