@@ -37,7 +37,7 @@ jobs:
         run: npm run build
         working-directory: ${{env.working-directory}}
       - name: Push Build to Releases
-        uses: ncipollo/release-action@v1
+        uses: ncipollo/release-action@v1.0.0
         with:
           artifacts: "dist/movies/*"
           token: ${{ secrets.TOKEN }}
